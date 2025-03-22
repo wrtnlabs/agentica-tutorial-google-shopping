@@ -1,7 +1,7 @@
 import { Agentica } from "@agentica/core";
-import typia from "typia";
 import dotenv from "dotenv";
 import { OpenAI } from "openai";
+import typia from "typia";
 
 import { GoogleShoppingService } from "@wrtnlabs/connector-google-shopping";
 
@@ -20,7 +20,9 @@ export const agent = new Agentica({
       name: "GoogleShopping Connector",
       protocol: "class",
       application: typia.llm.application<GoogleShoppingService, "chatgpt">(),
-      execute: new GoogleShoppingService(),
+      execute: new GoogleShoppingService({
+        apiKey: process.env.SERP_API_KEY!,
+      }),
     },
   ],
 });
